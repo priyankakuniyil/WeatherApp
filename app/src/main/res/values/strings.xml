@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">WeatherApp</string>
+
+    <string name="find_weather">Find Weather</string>
+    <string name="search_city">Search City</string>
+    <string name="recent_search">No Recent Searches</string>
+
 </resources>
+

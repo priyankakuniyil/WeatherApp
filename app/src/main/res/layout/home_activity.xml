@@ -1,0 +1,84 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/LinearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="@color/blue"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/et_search"
+                android:layout_margin="@dimen/margin_top"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/weather_icon"
+                    android:layout_height="@dimen/weather_icon"
+                    android:layout_gravity="center"
+                    android:src="@drawable/weather" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:fontFamily="@font/helveticaneuemedium"
+                    android:text="@string/find_weather"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/normal"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/search_height"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/margin_top"
+                android:background="@drawable/rounded_edittext"
+                android:drawableLeft="@drawable/ic_search_black_24dp"
+                android:drawablePadding="@dimen/margin"
+                android:fontFamily="@font/helveticaneuemed"
+                android:hint="@string/search_city"
+
+                android:paddingLeft="@dimen/margin"
+                app:elevation="7dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/LinearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3.5"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/ly_no_search"
+                layout="@layout/no_recent_search"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_recent_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

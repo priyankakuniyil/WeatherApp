@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="margin">10dp</dimen>
+    <dimen name="margin_top">25dp</dimen>
+    <dimen name="search_height">40dp</dimen>
+
+    <dimen name="box_height">50dp</dimen>
+
+    <dimen name="img_size">180dp</dimen>
+    <dimen name="margin_top_weather">50dp</dimen>
+
+    <dimen name="card">5dp</dimen>
+
+
+    <!--Icon-->
+    <dimen name="weather_icon">120dp</dimen>
+    <dimen name="back_icon">30dp</dimen>
+    <dimen name="small_icons">25dp</dimen>
+    <dimen name="list_icons">35dp</dimen>
+
+
+    <!--Font-->
+    <dimen name="normal">28sp</dimen>
+    <dimen name="small">20sp</dimen>
+    <dimen name="large">35sp</dimen>
+    <dimen name="list">16sp</dimen>
+    <dimen name="list_small">14sp</dimen>
+
+</resources>
