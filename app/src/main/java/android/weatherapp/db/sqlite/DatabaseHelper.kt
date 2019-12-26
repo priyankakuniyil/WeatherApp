@@ -1,4 +1,4 @@
-package android.weatherapp.db
+package android.weatherapp.db.sqlite
 
 import WeatherDetail
 import android.content.ContentValues
@@ -11,7 +11,10 @@ import android.weatherapp.Util
 import android.weatherapp.model.RecentCity
 
 class DatabaseHelper(context: Context) :
-    SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+    SQLiteOpenHelper(context,
+        DATABASE_NAME, null,
+        DATABASE_VERSION
+    ) {
 
     companion object {
         private val DATABASE_VERSION = 1
