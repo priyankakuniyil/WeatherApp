@@ -29,12 +29,13 @@ class HomeActivity : AppCompatActivity() {
     var hm_cityNames: ArrayList<HashMap<String, String>> = ArrayList()
 
     //private var recentCityDatabase: RecentCityDatabase? = null
+    lateinit var searchCityViewModel: SearchCityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
 
-        val searchCityViewModel =
+        searchCityViewModel =
             ViewModelProviders.of(this@HomeActivity).get(SearchCityViewModel::class.java)
 
         //recentCityDatabase = RecentCityDatabase.getDatabase(this)!!
@@ -46,48 +47,21 @@ class HomeActivity : AppCompatActivity() {
 
                 try {
 
-                    searchCityViewModel.getCityNames(et_search.text.toString())
-                        .observe(this@HomeActivity, Observer {
+                    if (!Util().isNetworkAvailable(this@HomeActivity)) {
+                        Toast.makeText(
+                            this@HomeActivity,
+                            getString(R.string.network_connection),
+                            Toast.LENGTH_SHORT
+                        ).show()
 
-                            if(et_search.text.toString().length>0)
-                            {
+                    } else {
 
-                                Log.e("Result", "${Gson().toJson(it)}")
-                                cityNames.clear()
-                                hm_cityNames.clear()
+                            observerCitySearch()
 
-                                for (i in 0 until it.search_api.result.size) {
-                                    cityNames.add(it.search_api.result[i].areaName[0].value + "," + it.search_api.result[i].country[0].value)
-                                    Log.e(
-                                        "Loop $i",
-                                        it.search_api.result[i].areaName[0].value + " " + it.search_api.result[i].country[0].value
-                                    )
+                    }
 
-                                    val hashMap: HashMap<String, String> = HashMap()
-                                    hashMap.put("region", it.search_api.result[i].areaName[0].value)
-                                    hashMap.put("country", it.search_api.result[i].country[0].value)
-                                    hm_cityNames.add(hashMap)
-                                }
 
-                                val from = arrayOf("region", "country")
-                                val to = intArrayOf(R.id.txt_region, R.id.txt_country)
-                                val adapter = SimpleAdapter(
-                                    this@HomeActivity,
-                                    hm_cityNames,
-                                    R.layout.auto_complete_list_item,
-                                    from,
-                                    to
-                                )
-
-                                et_search.setAdapter(adapter)
-                                et_search.showDropDown()
-
-                            }
-
-                        })
-
-                }catch (e:Exception)
-                {
+                } catch (e: Exception) {
 
                 }
 
@@ -152,11 +126,54 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun clearSelection() {
-        if (et_search != null) {
-            et_search.clearFocus()
-            et_search.dismissDropDown()
-            et_search.setText("")
-        }
+
+        et_search.clearFocus()
+        et_search.dismissDropDown()
+        et_search.setText("")
+
+    }
+
+    fun observerCitySearch() {
+
+        searchCityViewModel.getCityNames(et_search.text.toString())
+            .observe(this@HomeActivity, Observer {
+
+                if (et_search.text.toString().length > 0) {
+
+                    Log.e("Result", Gson().toJson(it))
+                    cityNames.clear()
+                    hm_cityNames.clear()
+
+                    for (i in 0 until it.search_api.result.size) {
+                        cityNames.add(it.search_api.result[i].areaName[0].value + "," + it.search_api.result[i].country[0].value)
+                        Log.e(
+                            "Loop $i",
+                            it.search_api.result[i].areaName[0].value + " " + it.search_api.result[i].country[0].value
+                        )
+
+                        val hashMap: HashMap<String, String> = HashMap()
+                        hashMap.put("region", it.search_api.result[i].areaName[0].value)
+                        hashMap.put("country", it.search_api.result[i].country[0].value)
+                        hm_cityNames.add(hashMap)
+                    }
+
+                    val from = arrayOf("region", "country")
+                    val to = intArrayOf(R.id.txt_region, R.id.txt_country)
+                    val adapter = SimpleAdapter(
+                        this@HomeActivity,
+                        hm_cityNames,
+                        R.layout.auto_complete_list_item,
+                        from,
+                        to
+                    )
+
+                    et_search.setAdapter(adapter)
+                    et_search.showDropDown()
+
+                }
+
+            })
+
     }
 
 }

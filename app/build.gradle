@@ -45,6 +45,9 @@ dependencies {
 
     implementation 'com.squareup.picasso:picasso:2.71828'
 
-    implementation 'androidx.room:room-runtime:2.0.0'
+    implementation 'androidx.room:room-runtime:2.2.3'
+
+    implementation 'org.mockito:mockito-core:2.7.22'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
 
 }

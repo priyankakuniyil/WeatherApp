@@ -1,6 +1,8 @@
-package android.weatherapp.repository
+package android.weatherapp.db.room
 
 import android.content.Context
+import android.weatherapp.repository.RecentCity
+import android.weatherapp.repository.RecentCityDao
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -10,6 +12,7 @@ abstract class RecentCityDatabase : RoomDatabase() {
     abstract fun recentCityDao(): RecentCityDao
 
     companion object {
+
         private var INSTANCE: RecentCityDatabase? = null
         fun getDatabase(context: Context): RecentCityDatabase? {
             if (INSTANCE == null) {

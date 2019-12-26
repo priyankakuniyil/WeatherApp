@@ -5,5 +5,7 @@
     <string name="search_city">Search City</string>
     <string name="recent_search">No Recent Searches</string>
 
+    <string name="network_connection">Please check network connection</string>
+
 </resources>
 
