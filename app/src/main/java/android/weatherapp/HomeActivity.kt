@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
+import android.weatherapp.adapter.RecentSearchAdapter
+import android.weatherapp.db.sqlite.DatabaseHelper
 import android.weatherapp.viewmodel.SearchCityViewModel
 import android.widget.AutoCompleteTextView
 import android.widget.SimpleAdapter
@@ -14,6 +17,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.home_activity.*
 
 class HomeActivity : AppCompatActivity() {
 
@@ -23,12 +28,16 @@ class HomeActivity : AppCompatActivity() {
     var cityNames: ArrayList<String> = ArrayList()
     var hm_cityNames: ArrayList<HashMap<String, String>> = ArrayList()
 
+    //private var recentCityDatabase: RecentCityDatabase? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
 
         val searchCityViewModel =
             ViewModelProviders.of(this@HomeActivity).get(SearchCityViewModel::class.java)
+
+        //recentCityDatabase = RecentCityDatabase.getDatabase(this)!!
 
         rv_recent_list = findViewById(R.id.rv_recent_list)
         et_search = findViewById(R.id.et_search)
@@ -87,12 +96,10 @@ class HomeActivity : AppCompatActivity() {
             try {
 
                 et_search.setText(cityNames[position].split(",")[0])
-                Toast.makeText(this, cityNames[position], Toast.LENGTH_SHORT).show()
 
                 val intent = Intent(this, WeatherDetails::class.java)
                 intent.putExtra("city_name", cityNames[position].split(",")[0])
                 startActivity(intent)
-
 
             } catch (e: Exception) {
 
@@ -100,16 +107,35 @@ class HomeActivity : AppCompatActivity() {
 
         }
 
+        /*if (recentCityDatabase!!.recentCityDao().viewRecentSearch().isNotEmpty()) {
+            rv_recent_list.layoutManager = LinearLayoutManager(this)
+            rv_recent_list.adapter =
+                RecentSearchAdapter(recentCityDatabase!!.recentCityDao().viewRecentSearch(), this)
+        } else {
+            ly_no_search.visibility = View.VISIBLE
+        }*/
+
+        setList()
+
     }
 
     override fun onResume() {
         super.onResume()
 
         clearSelection()
+        setList()
 
     }
 
-
+    fun setList() {
+        if (DatabaseHelper(this).viewRecentSearch().isNotEmpty()) {
+            rv_recent_list.layoutManager = LinearLayoutManager(this)
+            rv_recent_list.adapter =
+                RecentSearchAdapter(DatabaseHelper(this).viewRecentSearch(), this)
+        } else {
+            ly_no_search.visibility = View.VISIBLE
+        }
+    }
 
     fun clearSelection() {
         if (et_search != null) {
