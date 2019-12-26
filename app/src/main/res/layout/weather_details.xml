@@ -44,8 +44,8 @@
 
         <ImageView
             android:id="@+id/img_weather"
-            android:layout_width="@dimen/box_height"
-            android:layout_height="@dimen/box_height"
+            android:layout_width="@dimen/weather_image"
+            android:layout_height="@dimen/weather_image"
             android:layout_gravity="center" />
 
         <TextView

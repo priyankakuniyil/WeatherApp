@@ -44,40 +44,52 @@ class HomeActivity : AppCompatActivity() {
         et_search.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
-                searchCityViewModel.getCityNames(et_search.text.toString())
-                    .observe(this@HomeActivity, Observer {
+                try {
 
-                        Log.e("Result", "${Gson().toJson(it)}")
-                        cityNames.clear()
-                        hm_cityNames.clear()
+                    searchCityViewModel.getCityNames(et_search.text.toString())
+                        .observe(this@HomeActivity, Observer {
 
-                        for (i in 0 until it.search_api.result.size) {
-                            cityNames.add(it.search_api.result[i].areaName[0].value + "," + it.search_api.result[i].country[0].value)
-                            Log.e(
-                                "Loop $i",
-                                it.search_api.result[i].areaName[0].value + " " + it.search_api.result[i].country[0].value
-                            )
+                            if(et_search.text.toString().length>0)
+                            {
 
-                            val hashMap: HashMap<String, String> = HashMap()
-                            hashMap.put("region", it.search_api.result[i].areaName[0].value)
-                            hashMap.put("country", it.search_api.result[i].country[0].value)
-                            hm_cityNames.add(hashMap)
-                        }
+                                Log.e("Result", "${Gson().toJson(it)}")
+                                cityNames.clear()
+                                hm_cityNames.clear()
 
-                        val from = arrayOf("region", "country")
-                        val to = intArrayOf(R.id.txt_region, R.id.txt_country)
-                        val adapter = SimpleAdapter(
-                            this@HomeActivity,
-                            hm_cityNames,
-                            R.layout.auto_complete_list_item,
-                            from,
-                            to
-                        )
+                                for (i in 0 until it.search_api.result.size) {
+                                    cityNames.add(it.search_api.result[i].areaName[0].value + "," + it.search_api.result[i].country[0].value)
+                                    Log.e(
+                                        "Loop $i",
+                                        it.search_api.result[i].areaName[0].value + " " + it.search_api.result[i].country[0].value
+                                    )
 
-                        et_search.setAdapter(adapter)
-                        et_search.showDropDown()
+                                    val hashMap: HashMap<String, String> = HashMap()
+                                    hashMap.put("region", it.search_api.result[i].areaName[0].value)
+                                    hashMap.put("country", it.search_api.result[i].country[0].value)
+                                    hm_cityNames.add(hashMap)
+                                }
 
-                    })
+                                val from = arrayOf("region", "country")
+                                val to = intArrayOf(R.id.txt_region, R.id.txt_country)
+                                val adapter = SimpleAdapter(
+                                    this@HomeActivity,
+                                    hm_cityNames,
+                                    R.layout.auto_complete_list_item,
+                                    from,
+                                    to
+                                )
+
+                                et_search.setAdapter(adapter)
+                                et_search.showDropDown()
+
+                            }
+
+                        })
+
+                }catch (e:Exception)
+                {
+
+                }
 
             }
 
@@ -129,6 +141,8 @@ class HomeActivity : AppCompatActivity() {
 
     fun setList() {
         if (DatabaseHelper(this).viewRecentSearch().isNotEmpty()) {
+            ly_no_search.visibility = View.GONE
+
             rv_recent_list.layoutManager = LinearLayoutManager(this)
             rv_recent_list.adapter =
                 RecentSearchAdapter(DatabaseHelper(this).viewRecentSearch(), this)

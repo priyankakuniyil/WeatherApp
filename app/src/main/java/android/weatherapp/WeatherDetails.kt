@@ -58,7 +58,6 @@ class WeatherDetails :  AppCompatActivity() {
 
             Picasso.get()
                 .load(it.data.current_condition[0].weatherIconUrl[0].value)
-                .placeholder(R.drawable.ic_cloud_queue_black_24dp)
                 .error(R.drawable.ic_cloud_queue_black_24dp)
                 .into(img_weather)
 

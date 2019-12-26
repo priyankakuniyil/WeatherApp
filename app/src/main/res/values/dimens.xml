@@ -12,6 +12,7 @@
 
     <dimen name="card">5dp</dimen>
 
+    <dimen name="weather_image">80dp</dimen>
 
     <!--Icon-->
     <dimen name="weather_icon">120dp</dimen>
