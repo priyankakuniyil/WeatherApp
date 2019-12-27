@@ -8,13 +8,15 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = arrayOf(RecentCity::class), version = 1)
+
 abstract class RecentCityDatabase : RoomDatabase() {
+
     abstract fun recentCityDao(): RecentCityDao
 
     companion object {
 
         private var INSTANCE: RecentCityDatabase? = null
-        fun getDatabase(context: Context): RecentCityDatabase? {
+        fun getDatabase(context: Context): RecentCityDatabase {
             if (INSTANCE == null) {
                 synchronized(RecentCityDatabase::class) {
                     INSTANCE = Room.databaseBuilder(
@@ -23,7 +25,7 @@ abstract class RecentCityDatabase : RoomDatabase() {
                     ).build()
                 }
             }
-            return INSTANCE
+            return INSTANCE as RecentCityDatabase
 
         }
     }

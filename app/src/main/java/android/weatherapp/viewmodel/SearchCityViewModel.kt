@@ -9,7 +9,7 @@ class SearchCityViewModel : ViewModel() {
 
     var cities = MutableLiveData<SearchResult>()
 
-    fun getCityNames(query: String): MutableLiveData<SearchResult> {
+    fun getCityNames(query: String?): MutableLiveData<SearchResult> {
         cities = ProjectRepository().getCityNames(query)
         return cities
     }

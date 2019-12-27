@@ -37,14 +37,14 @@ interface ApiInterface {
     @GET("search.ashx")
     fun searchCity(
         @Query("key") key: String,
-        @Query("q") q: String,
+        @Query("q") q: String?,
         @Query("format") format: String
     ): Observable<SearchResult>
 
     @GET("weather.ashx")
     fun weatherDetails(
         @Query("key") key: String,
-        @Query("q") q: String,
+        @Query("q") q: String?,
         @Query("format") format: String
     ): Observable<WeatherDetail>
 

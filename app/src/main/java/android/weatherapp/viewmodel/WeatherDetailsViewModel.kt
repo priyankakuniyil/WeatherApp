@@ -9,7 +9,7 @@ class WeatherDetailsViewModel : ViewModel() {
 
     var weather = MutableLiveData<WeatherDetail>()
 
-    fun weatherDetails(cityName: String): MutableLiveData<WeatherDetail> {
+    fun weatherDetails(cityName: String?): MutableLiveData<WeatherDetail> {
         weather = ProjectRepository().getWeatherDetails(cityName)
         return weather
     }

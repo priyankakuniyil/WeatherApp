@@ -16,7 +16,7 @@ class ProjectRepository {
         apiInterface = ApiInterface.create()
     }
 
-    fun getCityNames(query: String): MutableLiveData<SearchResult> {
+    fun getCityNames(query: String?): MutableLiveData<SearchResult> {
 
         val data = MutableLiveData<SearchResult>()
 
@@ -45,7 +45,7 @@ class ProjectRepository {
 
     }
 
-    fun getWeatherDetails(cityName: String): MutableLiveData<WeatherDetail> {
+    fun getWeatherDetails(cityName: String?): MutableLiveData<WeatherDetail> {
 
         val data = MutableLiveData<WeatherDetail>()
 

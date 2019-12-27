@@ -6,9 +6,6 @@ import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 
-
-class Util {
-
     val dateFormat = "yyyy-MM-dd HH:mm:ss"
 
 
@@ -18,11 +15,10 @@ class Util {
         return dateFormat.format(date)
     }
 
-    fun isNetworkAvailable(activity: AppCompatActivity): Boolean {
+    fun isNetworkAvailable(activity: AppCompatActivity?): Boolean {
         val connectivityManager =
-            activity.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+            activity!!.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
         return networkInfo != null && networkInfo.isConnected
     }
 
-}

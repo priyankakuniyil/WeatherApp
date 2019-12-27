@@ -1,7 +1,8 @@
-package android.weatherapp
+package android.weatherapp.view
 
 import android.os.Bundle
 import android.util.Log
+import android.weatherapp.R
 import android.weatherapp.db.sqlite.DatabaseHelper
 import android.weatherapp.viewmodel.WeatherDetailsViewModel
 import android.widget.ImageView
@@ -12,7 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 
-class WeatherDetails :  AppCompatActivity() {
+class WeatherDetails : AppCompatActivity() {
 
     lateinit var img_back: ImageView
     lateinit var txt_city_name: TextView
@@ -47,33 +48,34 @@ class WeatherDetails :  AppCompatActivity() {
             finish()
         }
 
-        weatherDetailsViewModel.weatherDetails(s_cityName).observe(this, Observer {
+        weatherDetailsViewModel.weatherDetails(s_cityName)
+            .observe(this, Observer {
 
-            Log.e("Weather Details", "${Gson().toJson(it)}")
+                Log.e("Weather Details", "${Gson().toJson(it)}")
 
-            txt_city_name.text = it.data.request[0].query
-            txt_weather.text = it.data.current_condition[0].weatherDesc[0].value
-            tv_humidity.text = it.data.current_condition[0].humidity.toString()
-            tv_temperature.text = it.data.current_condition[0].temp_C.toString() + "\u2103"
+                txt_city_name.text = it.data.request[0].query
+                txt_weather.text = it.data.current_condition[0].weatherDesc[0].value
+                tv_humidity.text = it.data.current_condition[0].humidity.toString()
+                tv_temperature.text = it.data.current_condition[0].temp_C.toString() + "\u2103"
 
-            Picasso.get()
-                .load(it.data.current_condition[0].weatherIconUrl[0].value)
-                .error(R.drawable.ic_cloud_queue_black_24dp)
-                .into(img_weather)
+                Picasso.get()
+                    .load(it.data.current_condition[0].weatherIconUrl[0].value)
+                    .error(R.drawable.ic_cloud_queue_black_24dp)
+                    .into(img_weather)
 
-            DatabaseHelper(this).addCityWeather(it)
+                DatabaseHelper(this).addCityWeather(it)
 
-            /*recentCityDatabase!!.recentCityDao().addCityWeather(
-                RecentCity(
-                    it.data.request[0].query,
-                    it.data.current_condition[0].weatherDesc[0].value,
-                    it.data.current_condition[0].weatherIconUrl[0].value,
-                    it.data.current_condition[0].temp_C.toString() + "\u2103",
-                    it.data.current_condition[0].humidity.toString()
-                )
-            )*/
+                /*recentCityDatabase!!.recentCityDao().addCityWeather(
+                    RecentCity(
+                        it.data.request[0].query,
+                        it.data.current_condition[0].weatherDesc[0].value,
+                        it.data.current_condition[0].weatherIconUrl[0].value,
+                        it.data.current_condition[0].temp_C.toString() + "\u2103",
+                        it.data.current_condition[0].humidity.toString()
+                    )
+                )*/
 
-        })
+            })
 
     }
 }

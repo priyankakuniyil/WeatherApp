@@ -1,4 +1,4 @@
-package android.weatherapp
+package android.weatherapp.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.weatherapp.R
 import android.weatherapp.adapter.RecentSearchAdapter
 import android.weatherapp.db.sqlite.DatabaseHelper
+import android.weatherapp.isNetworkAvailable
 import android.weatherapp.viewmodel.SearchCityViewModel
 import android.widget.AutoCompleteTextView
 import android.widget.SimpleAdapter
@@ -29,6 +31,7 @@ class HomeActivity : AppCompatActivity() {
     var hm_cityNames: ArrayList<HashMap<String, String>> = ArrayList()
 
     //private var recentCityDatabase: RecentCityDatabase? = null
+
     lateinit var searchCityViewModel: SearchCityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +50,7 @@ class HomeActivity : AppCompatActivity() {
 
                 try {
 
-                    if (!Util().isNetworkAvailable(this@HomeActivity)) {
+                    if (!isNetworkAvailable(this@HomeActivity)) {
                         Toast.makeText(
                             this@HomeActivity,
                             getString(R.string.network_connection),
@@ -56,7 +59,7 @@ class HomeActivity : AppCompatActivity() {
 
                     } else {
 
-                            observerCitySearch()
+                        observerCitySearch()
 
                     }
 
@@ -146,6 +149,7 @@ class HomeActivity : AppCompatActivity() {
 
                     for (i in 0 until it.search_api.result.size) {
                         cityNames.add(it.search_api.result[i].areaName[0].value + "," + it.search_api.result[i].country[0].value)
+
                         Log.e(
                             "Loop $i",
                             it.search_api.result[i].areaName[0].value + " " + it.search_api.result[i].country[0].value
@@ -158,7 +162,10 @@ class HomeActivity : AppCompatActivity() {
                     }
 
                     val from = arrayOf("region", "country")
-                    val to = intArrayOf(R.id.txt_region, R.id.txt_country)
+                    val to = intArrayOf(
+                        R.id.txt_region,
+                        R.id.txt_country
+                    )
                     val adapter = SimpleAdapter(
                         this@HomeActivity,
                         hm_cityNames,

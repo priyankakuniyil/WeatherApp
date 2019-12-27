@@ -7,7 +7,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
-import android.weatherapp.Util
+import android.weatherapp.currentDate
 import android.weatherapp.model.RecentCity
 
 class DatabaseHelper(context: Context) :
@@ -62,7 +62,7 @@ class DatabaseHelper(context: Context) :
             KEY_CITY_TEMPERATURE,
             weather.data.current_condition[0].temp_C.toString() + "\u2103"
         )
-        contentValues.put(KEY_UPDATED_TIME, Util().currentDate())
+        contentValues.put(KEY_UPDATED_TIME, currentDate())
 
         val success = db.replace(TABLE_RECENT_SEARCH, null, contentValues)
 
