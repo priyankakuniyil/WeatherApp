@@ -10,8 +10,9 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.weatherapp.util.currentDate
 import android.weatherapp.model.RecentCity
 
-class DatabaseHelper(context: Context) :
-    SQLiteOpenHelper(context,
+class DatabaseHelper(context: Context?) :
+    SQLiteOpenHelper(
+        context,
         DATABASE_NAME, null,
         DATABASE_VERSION
     ) {
@@ -91,6 +92,7 @@ class DatabaseHelper(context: Context) :
         var cityWeatherImage: String
         var cityHumidity: String
         var cityTemperature: String
+        var UpdatedTime: String
 
         if (cursor.moveToFirst()) {
             do {
@@ -100,6 +102,7 @@ class DatabaseHelper(context: Context) :
                 cityWeatherImage = cursor.getString(cursor.getColumnIndex(KEY_CITY_WEATHER_IMAGE))
                 cityHumidity = cursor.getString(cursor.getColumnIndex(KEY_CITY_HUMIDITY))
                 cityTemperature = cursor.getString(cursor.getColumnIndex(KEY_CITY_TEMPERATURE))
+                UpdatedTime = cursor.getString(cursor.getColumnIndex(KEY_UPDATED_TIME))
 
                 val emp =
                     RecentCity(
@@ -107,7 +110,8 @@ class DatabaseHelper(context: Context) :
                         cityWeather = cityWeather,
                         cityWeatherImage = cityWeatherImage,
                         cityHumidity = cityHumidity,
-                        cityTemperature = cityTemperature
+                        cityTemperature = cityTemperature,
+                        updated_time = UpdatedTime
                     )
                 weatherList.add(emp)
 

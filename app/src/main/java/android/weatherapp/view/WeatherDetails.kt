@@ -3,7 +3,7 @@ package android.weatherapp.view
 import android.os.Bundle
 import android.util.Log
 import android.weatherapp.R
-import android.weatherapp.db.sqlite.DatabaseHelper
+import android.weatherapp.viewmodel.SqliteViewModel
 import android.weatherapp.viewmodel.WeatherDetailsViewModel
 import android.widget.ImageView
 import android.widget.TextView
@@ -33,6 +33,9 @@ class WeatherDetails : AppCompatActivity() {
         val weatherDetailsViewModel =
             ViewModelProviders.of(this@WeatherDetails).get(WeatherDetailsViewModel::class.java)
 
+        val sqliteViewModel =
+            ViewModelProviders.of(this@WeatherDetails).get(SqliteViewModel::class.java)
+
         img_back = findViewById(R.id.img_back)
         txt_city_name = findViewById(R.id.txt_city_name)
         img_weather = findViewById(R.id.img_weather)
@@ -59,7 +62,7 @@ class WeatherDetails : AppCompatActivity() {
                     .error(R.drawable.ic_cloud_queue_black_24dp)
                     .into(img_weather)
 
-                DatabaseHelper(this).addCityWeather(it)
+                sqliteViewModel.addCityWeather(this, it)
 
             })
 

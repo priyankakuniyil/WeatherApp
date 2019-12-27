@@ -8,9 +8,9 @@ import android.util.Log
 import android.view.View
 import android.weatherapp.R
 import android.weatherapp.adapter.RecentSearchAdapter
-import android.weatherapp.db.sqlite.DatabaseHelper
 import android.weatherapp.util.isNetworkAvailable
 import android.weatherapp.viewmodel.SearchCityViewModel
+import android.weatherapp.viewmodel.SqliteViewModel
 import android.widget.AutoCompleteTextView
 import android.widget.SimpleAdapter
 import android.widget.Toast
@@ -31,6 +31,7 @@ class HomeActivity : AppCompatActivity() {
     var hm_cityNames: ArrayList<HashMap<String, String>> = ArrayList()
 
     lateinit var searchCityViewModel: SearchCityViewModel
+    lateinit var sqliteViewModel: SqliteViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +39,7 @@ class HomeActivity : AppCompatActivity() {
 
         searchCityViewModel =
             ViewModelProviders.of(this@HomeActivity).get(SearchCityViewModel::class.java)
+        sqliteViewModel = ViewModelProviders.of(this@HomeActivity).get(SqliteViewModel::class.java)
 
         rv_recent_list = findViewById(R.id.rv_recent_list)
         et_search = findViewById(R.id.et_search)
@@ -105,12 +107,12 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun setList() {
-        if (DatabaseHelper(this).viewRecentSearch().isNotEmpty()) {
+        if (sqliteViewModel.getRecentSearches(this).isNotEmpty()) {
             ly_no_search.visibility = View.GONE
 
             rv_recent_list.layoutManager = LinearLayoutManager(this)
             rv_recent_list.adapter =
-                RecentSearchAdapter(DatabaseHelper(this).viewRecentSearch(), this)
+                RecentSearchAdapter(sqliteViewModel.getRecentSearches(this), this)
         } else {
             ly_no_search.visibility = View.VISIBLE
         }
