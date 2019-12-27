@@ -24,8 +24,6 @@ class WeatherDetails : AppCompatActivity() {
 
     lateinit var s_cityName: String
 
-    //private var recentCityDatabase: RecentCityDatabase? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.weather_details)
@@ -34,8 +32,6 @@ class WeatherDetails : AppCompatActivity() {
 
         val weatherDetailsViewModel =
             ViewModelProviders.of(this@WeatherDetails).get(WeatherDetailsViewModel::class.java)
-
-        //recentCityDatabase = RecentCityDatabase.getDatabase(this)!!
 
         img_back = findViewById(R.id.img_back)
         txt_city_name = findViewById(R.id.txt_city_name)
@@ -64,16 +60,6 @@ class WeatherDetails : AppCompatActivity() {
                     .into(img_weather)
 
                 DatabaseHelper(this).addCityWeather(it)
-
-                /*recentCityDatabase!!.recentCityDao().addCityWeather(
-                    RecentCity(
-                        it.data.request[0].query,
-                        it.data.current_condition[0].weatherDesc[0].value,
-                        it.data.current_condition[0].weatherIconUrl[0].value,
-                        it.data.current_condition[0].temp_C.toString() + "\u2103",
-                        it.data.current_condition[0].humidity.toString()
-                    )
-                )*/
 
             })
 

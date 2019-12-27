@@ -30,8 +30,6 @@ class HomeActivity : AppCompatActivity() {
     var cityNames: ArrayList<String> = ArrayList()
     var hm_cityNames: ArrayList<HashMap<String, String>> = ArrayList()
 
-    //private var recentCityDatabase: RecentCityDatabase? = null
-
     lateinit var searchCityViewModel: SearchCityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,8 +38,6 @@ class HomeActivity : AppCompatActivity() {
 
         searchCityViewModel =
             ViewModelProviders.of(this@HomeActivity).get(SearchCityViewModel::class.java)
-
-        //recentCityDatabase = RecentCityDatabase.getDatabase(this)!!
 
         rv_recent_list = findViewById(R.id.rv_recent_list)
         et_search = findViewById(R.id.et_search)
@@ -95,14 +91,6 @@ class HomeActivity : AppCompatActivity() {
             }
 
         }
-
-        /*if (recentCityDatabase!!.recentCityDao().viewRecentSearch().isNotEmpty()) {
-            rv_recent_list.layoutManager = LinearLayoutManager(this)
-            rv_recent_list.adapter =
-                RecentSearchAdapter(recentCityDatabase!!.recentCityDao().viewRecentSearch(), this)
-        } else {
-            ly_no_search.visibility = View.VISIBLE
-        }*/
 
         setList()
 
