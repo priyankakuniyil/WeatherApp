@@ -3,6 +3,7 @@ package android.weatherapp.view
 import android.os.Bundle
 import android.util.Log
 import android.weatherapp.R
+import android.weatherapp.db.sqlite.DatabaseHelper
 import android.weatherapp.viewmodel.SqliteViewModel
 import android.weatherapp.viewmodel.WeatherDetailsViewModel
 import android.widget.ImageView
@@ -62,7 +63,7 @@ class WeatherDetails : AppCompatActivity() {
                     .error(R.drawable.ic_cloud_queue_black_24dp)
                     .into(img_weather)
 
-                sqliteViewModel.addCityWeather(this, it)
+                sqliteViewModel.addCityWeather(DatabaseHelper(this), it)
 
             })
 

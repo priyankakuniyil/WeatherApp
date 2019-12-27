@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.weatherapp.R
 import android.weatherapp.adapter.RecentSearchAdapter
+import android.weatherapp.db.sqlite.DatabaseHelper
 import android.weatherapp.util.isNetworkAvailable
 import android.weatherapp.viewmodel.SearchCityViewModel
 import android.weatherapp.viewmodel.SqliteViewModel
@@ -107,12 +108,12 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun setList() {
-        if (sqliteViewModel.getRecentSearches(this).isNotEmpty()) {
+        if (sqliteViewModel.getRecentSearches(DatabaseHelper(this)).isNotEmpty()) {
             ly_no_search.visibility = View.GONE
 
             rv_recent_list.layoutManager = LinearLayoutManager(this)
             rv_recent_list.adapter =
-                RecentSearchAdapter(sqliteViewModel.getRecentSearches(this), this)
+                RecentSearchAdapter(sqliteViewModel.getRecentSearches(DatabaseHelper(this)), this)
         } else {
             ly_no_search.visibility = View.VISIBLE
         }

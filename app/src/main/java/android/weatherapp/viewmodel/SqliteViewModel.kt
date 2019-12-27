@@ -1,19 +1,22 @@
 package android.weatherapp.viewmodel
 
 import WeatherDetail
-import android.content.Context
 import android.weatherapp.db.sqlite.DatabaseHelper
 import android.weatherapp.model.RecentCity
 import androidx.lifecycle.ViewModel
 
 class SqliteViewModel : ViewModel() {
 
-    fun getRecentSearches(context: Context?): List<RecentCity> {
-        return DatabaseHelper(context).viewRecentSearch()
+    fun getRecentSearches(helper: DatabaseHelper?): List<RecentCity> {
+        return helper!!.viewRecentSearch()
     }
 
-    fun addCityWeather(context: Context, weather: WeatherDetail): Long {
-        return DatabaseHelper(context).addCityWeather(weather)
+    fun addCityWeather(helper: DatabaseHelper?, weather: WeatherDetail?): Long {
+        return helper!!.addCityWeather(weather)
+    }
+
+    fun deleteEntries(helper: DatabaseHelper?) {
+        return helper!!.delete()
     }
 
 }

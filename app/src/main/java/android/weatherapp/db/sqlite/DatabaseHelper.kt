@@ -47,12 +47,20 @@ class DatabaseHelper(context: Context?) :
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    fun openWritableDB() {
+        this.writableDatabase
+    }
 
-    fun addCityWeather(weather: WeatherDetail): Long {
+    fun closeDB() {
+        this.close()
+    }
+
+
+    fun addCityWeather(weather: WeatherDetail?): Long {
 
         val db = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put(KEY_CITY_NAME, weather.data.request[0].query)
+        contentValues.put(KEY_CITY_NAME, weather!!.data.request[0].query)
         contentValues.put(KEY_CITY_WEATHER, weather.data.current_condition[0].weatherDesc[0].value)
         contentValues.put(
             KEY_CITY_WEATHER_IMAGE,
@@ -120,6 +128,11 @@ class DatabaseHelper(context: Context?) :
 
         return weatherList
 
+    }
+
+    fun delete() {
+        val db = this.writableDatabase
+        return db.execSQL("Delete from " + TABLE_RECENT_SEARCH)
     }
 
 }
