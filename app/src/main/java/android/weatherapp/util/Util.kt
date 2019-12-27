@@ -1,4 +1,4 @@
-package android.weatherapp
+package android.weatherapp.util
 
 import java.text.SimpleDateFormat
 import java.util.*

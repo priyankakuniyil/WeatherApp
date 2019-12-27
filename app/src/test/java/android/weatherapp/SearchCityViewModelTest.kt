@@ -1,6 +1,10 @@
-package android.weatherapp.viewmodel
+package android.weatherapp
 
+import android.weatherapp.viewmodel.SearchCityViewModel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import io.reactivex.android.plugins.RxAndroidPlugins
+import io.reactivex.schedulers.Schedulers
+
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -9,6 +13,7 @@ import retrofit2.Response
 import java.lang.Exception
 
 class SearchCityViewModelTest {
+
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
@@ -18,6 +23,7 @@ class SearchCityViewModelTest {
     @Before
     fun setUp() {
         searchCityViewModel = SearchCityViewModel()
+        RxAndroidPlugins.setInitMainThreadSchedulerHandler { scheduler -> Schedulers.trampoline() }
     }
 
     @After

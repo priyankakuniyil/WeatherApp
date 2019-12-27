@@ -1,22 +1,23 @@
-package android.weatherapp.viewmodel
+package android.weatherapp
 
-import android.weatherapp.db.sqlite.DatabaseHelper
+import android.weatherapp.viewmodel.WeatherDetailsViewModel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import org.junit.After
 import org.junit.Before
 
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.Mockito
 import retrofit2.Response
 import java.lang.Exception
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.android.plugins.RxAndroidPlugins
+
+
 
 class WeatherDetailsViewModelTest {
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
-
-    private inline fun <reified T> mock() = Mockito.mock(T::class.java)
 
     private var weatherDetailViewModel: WeatherDetailsViewModel? = null
     private var query: String? = null
@@ -24,6 +25,8 @@ class WeatherDetailsViewModelTest {
     @Before
     fun setUp() {
         weatherDetailViewModel = WeatherDetailsViewModel()
+
+        RxAndroidPlugins.setInitMainThreadSchedulerHandler { scheduler -> Schedulers.trampoline() }
     }
 
     @After

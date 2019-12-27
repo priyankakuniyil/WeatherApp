@@ -7,7 +7,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
-import android.weatherapp.currentDate
+import android.weatherapp.util.currentDate
 import android.weatherapp.model.RecentCity
 
 class DatabaseHelper(context: Context) :

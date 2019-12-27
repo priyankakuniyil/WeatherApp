@@ -2,7 +2,7 @@ package android.weatherapp.db.retrofit
 
 import SearchResult
 import WeatherDetail
-import io.reactivex.Observable
+import io.reactivex.Flowable
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -39,13 +39,13 @@ interface ApiInterface {
         @Query("key") key: String,
         @Query("q") q: String?,
         @Query("format") format: String
-    ): Observable<SearchResult>
+    ): Flowable<SearchResult>
 
     @GET("weather.ashx")
     fun weatherDetails(
         @Query("key") key: String,
         @Query("q") q: String?,
         @Query("format") format: String
-    ): Observable<WeatherDetail>
+    ): Flowable<WeatherDetail>
 
 }

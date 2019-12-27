@@ -11,7 +11,7 @@ interface RecentCityDao {
     @Insert
     fun addCityWeather(recentCity: RecentCity)
 
-    @Query("SELECT  * FROM RecentCity ORDER BY updated_time ASC LIMIT 10")
+    @Query("SELECT  * FROM recentcity ORDER BY updated_time ASC LIMIT 10")
     fun viewRecentSearch(): List<RecentCity>
 
 }

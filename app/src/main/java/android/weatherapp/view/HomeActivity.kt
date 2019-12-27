@@ -9,7 +9,7 @@ import android.view.View
 import android.weatherapp.R
 import android.weatherapp.adapter.RecentSearchAdapter
 import android.weatherapp.db.sqlite.DatabaseHelper
-import android.weatherapp.isNetworkAvailable
+import android.weatherapp.util.isNetworkAvailable
 import android.weatherapp.viewmodel.SearchCityViewModel
 import android.widget.AutoCompleteTextView
 import android.widget.SimpleAdapter

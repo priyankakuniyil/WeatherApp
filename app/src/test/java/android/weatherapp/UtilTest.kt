@@ -1,5 +1,6 @@
 package android.weatherapp
 
+import android.weatherapp.util.isNetworkAvailable
 import org.junit.Assert
 import org.junit.Test
 
