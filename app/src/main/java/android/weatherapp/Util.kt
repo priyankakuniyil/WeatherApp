@@ -16,6 +16,11 @@ import androidx.appcompat.app.AppCompatActivity
     }
 
     fun isNetworkAvailable(activity: AppCompatActivity?): Boolean {
+
+        if(activity==null)
+        {
+            return false
+        }
         val connectivityManager =
             activity!!.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo

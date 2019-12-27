@@ -7,7 +7,7 @@ class UtilTest {
     @Test
     fun testisNetworkAvailable()
     {
-        Assert.assertEquals(isNetworkAvailable(null),null)
+        Assert.assertEquals(isNetworkAvailable(null),false)
     }
 
 }
